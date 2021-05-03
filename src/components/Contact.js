@@ -2,11 +2,33 @@ import React from "react";
 import emailjs from "emailjs-com";
 
 export default function Contact() {
+  // Send Email
+  const sendEmail = (event) => {
+    event.preventDefault(); // Prevent Page refresh
+    // Data
+    let serviceId = "gmail";
+    let templateId = "emailjs";
+    let userId = "";
+
+    // Send Data
+    emailjs.sendForm(serviceId, templateId, event.target, userId).then(
+      (result) => {
+        console.log(result.text);
+      },
+      (error) => {
+        console.log(error.text);
+      }
+    );
+
+    // Reset Form Input
+    event.target.reset();
+  };
+
   return (
     <div>
       <div className="container">
         <h2 className="text-center mt-3">Send Email using Emailjs</h2>
-        <form>
+        <form onSubmit={sendEmail}>
           <div className="row pt-5 mx-auto">
             <div className="col-8 form-group mx-auto">
               <input
